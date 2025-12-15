@@ -13,17 +13,9 @@ const products = [
 const productList = document.getElementById("product-list");
 let clickClear = document.getElementById("clear-cart-btn");
 let cartDiv = document.getElementById("cart-list");
-let cart=[];
 
-// Load cart from sessionStorage
-function loadCart() {
-  const storedCart = sessionStorage.getItem("cart");
-  if (storedCart) {
-    cart = JSON.parse(storedCart);
-  }else{
-	  cart = [];
-  }
-}
+let cart= JSON.parse(sessionStorage.getItem("cart")) || [];
+
 
 function saveCart() {
   sessionStorage.setItem("cart", JSON.stringify(cart));
