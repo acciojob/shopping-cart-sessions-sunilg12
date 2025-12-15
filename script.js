@@ -108,7 +108,6 @@ function clearCart() {
 
 // Initial render
 
-loadCart();
 cart = [];
 sessionStorage.removeItem("cart");
 renderProducts();
