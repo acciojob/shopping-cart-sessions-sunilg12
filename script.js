@@ -52,6 +52,8 @@ function renderCart() {
 	while (cartDiv.firstChild) 
 	  cartDiv.removeChild(cartDiv.firstChild);
 
+	if(cart.length === 0) return; 
+
 	let ul = document.createElement("ul");
 	let total=0;
 
@@ -102,14 +104,13 @@ function removeFromCart(productId) {
 
 // Clear cart
 function clearCart() {
-	cart.length=0;
+	cart=[];
 	renderCart();
 }
 
 // Initial render
 
-cart = [];
-sessionStorage.removeItem("cart");
+
 renderProducts();
 renderCart();
 clickClear.addEventListener("click" ,clearCart);
