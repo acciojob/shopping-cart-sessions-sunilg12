@@ -11,8 +11,8 @@ const products = [
 
 // DOM elements
 const productList = document.getElementById("product-list");
-let clickClear = document.getElementById("clear-cart-btn");
-let cartDiv = document.getElementById("cart-list");
+const clickClear = document.getElementById("clear-cart-btn");
+const cartDiv = document.getElementById("cart-list");
 
 let cart= JSON.parse(sessionStorage.getItem("cart")) || [];
 
@@ -20,8 +20,6 @@ let cart= JSON.parse(sessionStorage.getItem("cart")) || [];
 function saveCart() {
   sessionStorage.setItem("cart", JSON.stringify(cart));
 }
-
-// let productsAdded=document.createElement("ul");
 
 // Render product list
 function renderProducts() {
@@ -41,34 +39,20 @@ function renderProducts() {
 
 // Render cart list
 function renderCart() {
-	while (cartDiv.firstChild) 
-	  cartDiv.removeChild(cartDiv.firstChild);
+	cartDiv.innerHTML="";
 
-	if(cart.length === 0) return; 
+	if(cart.length === 0) return;
 
-	let ul = document.createElement("ul");
-	let total=0;
 
 	for(let i=0; i<cart.length; i++){
 		let item=cart[i];
 
 		let cartList = document.createElement("li");
-		cartList.innerHTML=`${item.name} - $${item.price} `;
+		cartList.textContent=`${item.name} - $${item.price} `;
 
-		let removebtn = document.createElement("button");
-		removebtn.innerText="remove";
-		removebtn.addEventListener("click", ()=>removeFromCart(item.id));
-
-		cartList.appendChild(removebtn);
-
-		ul.appendChild(cartList);
-		total += item.price;
+		cartDiv.appendChild(cartList);
 	}
 
-	cartDiv.appendChild(ul);
-	let totalPrice=document.createElement("h3");
-	totalPrice.innerText = `Total= $${total}`;
-	cartDiv.appendChild(totalPrice);
 
 	saveCart();
 }
@@ -101,8 +85,6 @@ function clearCart() {
 }
 
 // Initial render
-
-
 renderProducts();
 renderCart();
 clickClear.addEventListener("click" ,clearCart);
